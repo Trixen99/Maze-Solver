@@ -1,6 +1,8 @@
 from cell import Cell
+from pointLine import *
 import time
 import random
+
 
 
 class Maze:
@@ -21,7 +23,7 @@ class Maze:
 
 
     def _create_cells(self):
-        self._cells = [[Cell(1,1,1,1,self._win) for col in range(self.num_rows)] for row in range(self.num_cols)]
+        self._cells = [[Cell(1,1,1,1,self._win) for row in range(self.num_rows)] for col in range(self.num_cols)]
         for column_number in range(len(self._cells)):
             current_column = self._cells[column_number]
             for cell_number in range(len(current_column)):
@@ -64,18 +66,17 @@ class Maze:
         current_cell.visited = True
         while True:
             to_visit = []
-            if j + 1 < self.num_cols and self._cells[i][j + 1].visited == False:
+            if j + 1 < self.num_rows and self._cells[i][j + 1].visited == False:
                 to_visit.append([self._cells[i][j + 1], "bottom"])
 
-            if j - 1 >= 0 and  self._cells[i][j - 1].visited == False:
+            if j - 1 >= 0 and self._cells[i][j - 1].visited == False:
                 to_visit.append([self._cells[i][j - 1], "top"])
 
-            if i + 1 < self.num_rows and self._cells[i + 1][j].visited == False:
+            if i + 1 < self.num_cols and self._cells[i + 1][j].visited == False:
                 to_visit.append([self._cells[i + 1][j], "right"])
                 
             if i - 1 >= 0 and self._cells[i - 1][j].visited == False:
                 to_visit.append([self._cells[i - 1][j], "left"])
-
             if to_visit == []:
                 return
             chosen = to_visit[random.randrange(len(to_visit))]
@@ -115,7 +116,11 @@ class Maze:
                 cell.visited = False
 
     def solve(self):
+        line = Line(Point(self._cells[0][0].middle_coords[0], self._cells[0][0].middle_coords[1]),Point(self._cells[0][0].middle_coords[0], self._cells[0][0].middle_coords[1] - self.cell_size_y))
+        self._win.draw_line(line, "red")
         if self._solve_r(0,0) == True:
+            line2 = Line(Point(self._cells[-1][-1].middle_coords[0], self._cells[-1][-1].middle_coords[1]),Point(self._cells[-1][-1].middle_coords[0], self._cells[-1][-1].middle_coords[1] + self.cell_size_y))
+            self._win.draw_line(line2, "red")
             return True
         return False
     

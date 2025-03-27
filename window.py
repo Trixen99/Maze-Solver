@@ -8,12 +8,17 @@ class Window:
         self.__canvas.pack(fill=BOTH)
         self.__running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
+        self.width = width
+        self.height = height
 
     def redraw(self):
         self.__root.update_idletasks()
         self.__root.update()
 
-
+    def screen_size(self, num_rows, num_cols):
+        cell_row_size = (self.width - 20) / num_rows
+        cell_column_size = (self.height - 20) / num_cols
+        return cell_row_size, cell_column_size
 
     def wait_for_close(self):
         self.__running = True
