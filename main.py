@@ -2,13 +2,21 @@ from window import *
 from pointLine import *
 from cell import *
 from maze import *
+from input import *
+
+my_input = input_window()
+maze_width = int(my_input.width)
+
+
+
+
 
 width, height = 1000, 1000
 num_rows = 30
 num_cols = 10
 win = Window(width, height)
 size = win.screen_size(num_rows, num_cols)
-print(size)
+#print(size)
 
 #######Maze(x1,y1,num_rows,num_cols,cell_size_x,cell_size_y=, win, seed)
 my_maze = Maze(10,10,num_rows,num_cols,size[1],size[0],win, seed=22255552)
