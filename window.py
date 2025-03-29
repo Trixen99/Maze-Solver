@@ -16,8 +16,14 @@ class Window:
         self.__root.update()
 
     def screen_size(self, num_rows, num_cols):
-        cell_row_size = (self.width - 20) / num_rows
-        cell_column_size = (self.height - 20) / num_cols
+        remaining_height = (self.height - 20) % num_rows
+        remaining_width = (self.width - 20) % num_cols
+        cell_row_size = ((self.width - 20) // num_rows) + (remaining_height // 2)
+        cell_column_size = ((self.height - 20) // num_cols) + (remaining_width // 2)
+        print(remaining_height)
+        print(remaining_width)
+        print(f"cell row size {cell_row_size}")
+        print(f"cell column size {cell_column_size}")
         return cell_row_size, cell_column_size
 
     def wait_for_close(self):

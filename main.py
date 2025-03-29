@@ -5,16 +5,13 @@ from maze import *
 from input import *
 
 my_input = input_window()
-maze_width = int(my_input.width)
+maze_width = my_input.width
+maze_height = my_input.height
+num_rows = my_input.rows
+num_cols = my_input.columns
 
 
-
-
-
-width, height = 1000, 1000
-num_rows = 30
-num_cols = 10
-win = Window(width, height)
+win = Window(maze_width, maze_height)
 size = win.screen_size(num_rows, num_cols)
 #print(size)
 
